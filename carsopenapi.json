@@ -1,0 +1,1078 @@
+{
+  "openapi": "3.0.0",
+  "Access-Control-Allow-Origin": "*",
+  "info": {
+    "title": "Car Management API",
+    "description": "Car Management Rest API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Optional server description, e.g. Main (production) server"
+    },
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Optional server description, e.g. Internal staging server for testing"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Tag Users"
+    },
+    {
+      "name": "Cars",
+      "description": "Tag Cars"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Login Users (Member, Admin, Super Admin)",
+        "description": "Login for Users",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "muhamadmiftahul.27@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "jinan1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "muhamadmiftahul.27@gmail.com"
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "xxxxx"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User login fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Password salah!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User login fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email tidak ditemukan"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/create": {
+      "post": {
+        "summary": "Create admin (Super Admin)",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Adminjinan"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "adminjinan112@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "jinan27123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Adminjinan"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "adminjinan112@gmail.com"
+                    },
+                    "id_user_level": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed to create admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to create admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register member",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Miftah"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "miftah27@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "miftah123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Register success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "miftah"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "miftah27@gmail.com"
+                    },
+                    "id_user_level": {
+                      "type": "integer",
+                      "example": 3
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-10-30T14:27:32.828Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ailed to create member",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to create member"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/car/create": {
+      "post": {
+        "summary": "Create car",
+        "tags": ["Cars"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plate": {
+                    "type": "string",
+                    "example": "DBH-3491"
+                  },
+                  "manufacture": {
+                    "type": "string",
+                    "example": "Ford"
+                  },
+                  "model": {
+                    "type": "string",
+                    "example": "F150"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "car1.jpg"
+                  },
+                  "rentPerDay": {
+                    "type": "integer",
+                    "example": 100000
+                  },
+                  "capacity": {
+                    "type": "integer",
+                    "example": 4
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "Sedan"
+                  },
+                  "year": {
+                    "type": "string",
+                    "example": "2022"
+                  },
+                  "avaliable": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "avaliableAt": {
+                    "type": "string",
+                    "example": "2022-10-12"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Car created successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "plate": {
+                          "type": "string",
+                          "example": "DBH-3491"
+                        },
+                        "manufacture": {
+                          "type": "string",
+                          "example": "Ford"
+                        },
+                        "model": {
+                          "type": "string",
+                          "example": "F150"
+                        },
+                        "image": {
+                          "type": "string",
+                          "example": "car1.jpg"
+                        },
+                        "rentPerDay": {
+                          "type": "integer",
+                          "example": 100000
+                        },
+                        "capacity": {
+                          "type": "integer",
+                          "example": 4
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Sedan"
+                        },
+                        "year": {
+                          "type": "string",
+                          "example": "2022"
+                        },
+                        "avaliable": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "avaliableAt": {
+                          "type": "string",
+                          "example": "2022-11-11"
+                        },
+                        "createdBy": {
+                          "type": "string",
+                          "example": "Miftahul Jinan"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2022-10-11"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2022-10-11"
+                        },
+                        "updatedBy": {
+                          "type": "string",
+                          "example": "null"
+                        },
+                        "deletedBy": {
+                          "type": "string",
+                          "example": "null"
+                        },
+                        "deletedAt": {
+                          "type": "string",
+                          "example": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed to create car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to create car"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cars": {
+      "get": {
+        "summary": "Returns a list of cars",
+        "description": "List cars",
+        "tags": ["Cars"],
+        "responses": {
+          "200": {
+            "description": "JSON array of cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "plate": {
+                            "type": "string",
+                            "example": "DBH-3491"
+                          },
+                          "manufacture": {
+                            "type": "string",
+                            "example": "Ford"
+                          },
+                          "model": {
+                            "type": "string",
+                            "example": "F150"
+                          },
+                          "image": {
+                            "type": "string",
+                            "example": "car1.jpg"
+                          },
+                          "rentPerDay": {
+                            "type": "integer",
+                            "example": 100000
+                          },
+                          "capacity": {
+                            "type": "integer",
+                            "example": 4
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Sedan"
+                          },
+                          "year": {
+                            "type": "string",
+                            "example": "2022"
+                          },
+                          "avaliable": {
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "avaliableAt": {
+                            "type": "string",
+                            "example": "2022-11-11"
+                          },
+                          "createdBy": {
+                            "type": "string",
+                            "example": "Miftahul Jinan"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-11-11"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-11-11"
+                          },
+                          "updatedBy": {
+                            "type": "string",
+                            "example": "null"
+                          },
+                          "deletedBy": {
+                            "type": "string",
+                            "example": "null"
+                          },
+                          "deletedAt": {
+                            "type": "string",
+                            "example": "null"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/car/update/{id}": {
+      "put": {
+        "summary": "Update car by ID",
+        "tags": ["Cars"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Object cars",
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plate": {
+                    "type": "string",
+                    "example": "DBH-3491"
+                  },
+                  "manufacture": {
+                    "type": "string",
+                    "example": "Ford"
+                  },
+                  "model": {
+                    "type": "string",
+                    "example": "F150"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "car1.jpg"
+                  },
+                  "rentPerDay": {
+                    "type": "integer",
+                    "example": 100000
+                  },
+                  "capacity": {
+                    "type": "integer",
+                    "example": 4
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "Sedan"
+                  },
+                  "year": {
+                    "type": "string",
+                    "example": "2022"
+                  },
+                  "avaliable": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "avaliableAt": {
+                    "type": "string",
+                    "example": "2022-11-11"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Car updated successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/car/delete/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true,
+          "description": "The car ID."
+        }
+      ],
+      "delete": {
+        "summary": "Delete car by ID",
+        "tags": ["Cars"],
+        "responses": {
+          "200": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Car delete successfully"
+                    },
+                    "data": {
+                      "type": "integer",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cars/filter": {
+      "get": {
+        "summary": "Filter & returns a list of cars",
+        "description": "Search list cars by avaliableAt, pickupTime, capacity",
+        "tags": ["Cars"],
+        "parameters": [
+          {
+            "name": "avaliableAt",
+            "in": "query",
+            "description": "avaliableAt Car",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "2022-11-11"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "pickupTime",
+            "in": "query",
+            "description": "pickupTime Car",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "18:10"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "capacity",
+            "in": "query",
+            "description": "capacity Car",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "example": 3
+              }
+            },
+            "style": "form",
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON array of cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "plate": {
+                            "type": "string",
+                            "example": "DBH-3491"
+                          },
+                          "manufacture": {
+                            "type": "string",
+                            "example": "Ford"
+                          },
+                          "model": {
+                            "type": "string",
+                            "example": "F150"
+                          },
+                          "image": {
+                            "type": "string",
+                            "example": "car1.jpg"
+                          },
+                          "rentPerDay": {
+                            "type": "integer",
+                            "example": 100000
+                          },
+                          "capacity": {
+                            "type": "integer",
+                            "example": 4
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Sedan"
+                          },
+                          "year": {
+                            "type": "string",
+                            "example": "2022"
+                          },
+                          "avaliable": {
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "avaliableAt": {
+                            "type": "string",
+                            "example": "2022-11-11"
+                          },
+                          "createdBy": {
+                            "type": "string",
+                            "example": "Miftahul Jinan"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-10-11"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-10-11"
+                          },
+                          "updatedBy": {
+                            "type": "string",
+                            "example": "null"
+                          },
+                          "deletedBy": {
+                            "type": "string",
+                            "example": "null"
+                          },
+                          "deletedAt": {
+                            "type": "string",
+                            "example": "null"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/whoami": {
+      "get": {
+        "summary": "Returns current user",
+        "description": "List cars",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "JSON data of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Miftahul Jinan"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "muhamadmiftahul.27@gmail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2a$10$rntjC31ZGW7GEsQbq"
+                    },
+                    "id_user_level": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-14"
+                    },
+                    "created": {
+                      "type": "string",
+                      "example": "2022-10-14"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

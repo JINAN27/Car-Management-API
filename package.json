@@ -1,0 +1,35 @@
+{
+  "name": "car-management-api",
+  "author": "MUHAMMAD MIFTAHUL JINAN",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node bin/www",
+    "develop": "nodemon -q bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.25.2",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "description": "<div id=\"top\"></div>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JINAN27/Car-Management-API.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/JINAN27/Car-Management-API.git"
+  },
+  "homepage": "https://github.com/JINAN27/Car-Management-API.git"
+}
